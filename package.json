@@ -1,0 +1,92 @@
+{
+  "name": "freellmapi-agent",
+  "displayName": "FreeLLMAPI Agent",
+  "description": "Agente completo para VS Code conectado a FreeLLMAPI con telemetría real de tokens y cuotas",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Chat"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "freellmapi-sidebar",
+          "title": "FreeLLMAPI Agent",
+          "icon": "$(sparkle)"
+        }
+      ]
+    },
+    "views": {
+      "freellmapi-sidebar": [
+        {
+          "type": "webview",
+          "id": "freellmapi.chatView",
+          "name": "Agente FreeLLMAPI",
+          "icon": "$(sparkle)"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "freellmapi.focusChat",
+        "title": "FreeLLMAPI: Abrir Chat del Agente"
+      },
+      {
+        "command": "freellmapi.sendSelection",
+        "title": "FreeLLMAPI: Enviar selección al Agente"
+      },
+      {
+        "command": "freellmapi.clearChat",
+        "title": "FreeLLMAPI: Limpiar conversación"
+      },
+      {
+        "command": "freellmapi.refreshStats",
+        "title": "FreeLLMAPI: Actualizar métricas del servidor"
+      }
+    ],
+    "configuration": {
+      "title": "FreeLLMAPI Agent",
+      "properties": {
+        "freellmapi.baseUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:31415/v1",
+          "description": "URL base del servidor FreeLLMAPI (/v1)"
+        },
+        "freellmapi.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Clave unificada de FreeLLMAPI (freellmapi-...)"
+        },
+        "freellmapi.defaultMode": {
+          "type": "string",
+          "default": "auto",
+          "description": "Modo de enrutamiento por defecto (auto, auto:fast, auto:smart o ID de modelo)"
+        },
+        "freellmapi.enableTools": {
+          "type": "boolean",
+          "default": true,
+          "description": "Permitir al agente usar herramientas sobre archivos y terminal (con confirmación)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {
+    "openai": "^4.77.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0"
+  }
+}
